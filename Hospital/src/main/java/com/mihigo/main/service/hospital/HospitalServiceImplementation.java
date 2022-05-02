@@ -3,10 +3,12 @@ package com.mihigo.main.service.hospital;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.mihigo.main.model.Hospital;
 import com.mihigo.main.repositories.HospitalRepo;
 
+@Service
 public class HospitalServiceImplementation implements HospitalService {
 
 	@Autowired

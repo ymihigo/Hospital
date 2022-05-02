@@ -9,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import org.springframework.stereotype.Component;
 
@@ -32,6 +33,8 @@ public class Userz extends Address implements Serializable {
 	private String password;
 	@Enumerated(EnumType.STRING)
 	private UserRole role;
+	@ManyToOne
+	private Hospital hospital;
 
 	public Userz() {
 		super();
@@ -44,13 +47,24 @@ public class Userz extends Address implements Serializable {
 	}
 
 	public Userz(String country, String city, String sector, String cell, String phone, String email, int id,
-			String names, String username, String password, UserRole role) {
+			String names, String username, String password, UserRole role, Hospital hospital) {
 		super(country, city, sector, cell, phone, email);
 		this.id = id;
 		this.names = names;
 		this.username = username;
 		this.password = password;
 		this.role = role;
+		this.hospital = hospital;
+	}
+
+	public Userz(String country, String city, String sector, String cell, String phone, String email, String names,
+			String username, String password, UserRole role, Hospital hospital) {
+		super(country, city, sector, cell, phone, email);
+		this.names = names;
+		this.username = username;
+		this.password = password;
+		this.role = role;
+		this.hospital = hospital;
 	}
 
 	public Userz(String country, String city, String sector, String cell, String phone, String email, String names,
@@ -62,12 +76,12 @@ public class Userz extends Address implements Serializable {
 		this.role = role;
 	}
 
-	public static long getSerialversionuid() {
+	public static long getSerialVersionUID() {
 		return serialVersionUID;
 	}
 
-	public static void setSerialversionuid(long serialversionuid) {
-		serialVersionUID = serialversionuid;
+	public static void setSerialVersionUID(long serialVersionUID) {
+		Userz.serialVersionUID = serialVersionUID;
 	}
 
 	public int getId() {
@@ -108,6 +122,14 @@ public class Userz extends Address implements Serializable {
 
 	public void setRole(UserRole role) {
 		this.role = role;
+	}
+
+	public Hospital getHospital() {
+		return hospital;
+	}
+
+	public void setHospital(Hospital hospital) {
+		this.hospital = hospital;
 	}
 
 }
