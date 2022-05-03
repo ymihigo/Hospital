@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.mihigo.main.model.Patient;
 
 @Repository
-public interface PatientRepo extends JpaRepository<Patient, Integer> {
-
+public interface PatientRepo extends JpaRepository<Patient, Long> {
+	
 }

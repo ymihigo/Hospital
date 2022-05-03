@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mihigo.main.exception.InvalidParameters;
 import com.mihigo.main.model.Hospital;
 import com.mihigo.main.model.Patient;
+import com.mihigo.main.model.PatientFile;
 import com.mihigo.main.payload.HospitalPayload;
 import com.mihigo.main.payload.PatientPayload;
 import com.mihigo.main.service.hospital.HospitalService;
@@ -70,6 +73,29 @@ public class Controller {
 	public List<Patient> allPatient() throws InvalidParameters {
 		try {
 			return ps.allPatient();
+		} catch (Exception ex) {
+			throw new InvalidParameters(ex.getMessage());
+		}
+	}
+
+	@PostMapping("/patientfile")
+	@CrossOrigin(origins = "*")
+	public ResponseEntity<?> createPatientFile(@RequestParam("patient") long patient_id,
+			@RequestParam("image") MultipartFile image, @RequestParam("hospital") int hospital_id)
+			throws InvalidParameters {
+		try {
+			ps.createPatientFile(patient_id, image, hospital_id);
+			return new ResponseEntity<String>("Patient File Saved", HttpStatus.OK);
+		} catch (Exception ex) {
+			throw new InvalidParameters(ex.getMessage());
+		}
+	}
+
+	@GetMapping("/patient_files")
+	@CrossOrigin(origins = "*")
+	public List<PatientFile> patientFiles(@RequestParam("patient_id") long pid) throws InvalidParameters {
+		try {
+			return ps.allPatientFile(pid);
 		} catch (Exception ex) {
 			throw new InvalidParameters(ex.getMessage());
 		}
